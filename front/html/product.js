@@ -23,20 +23,32 @@ fetch(urlProduct)
         }
 
 //ENREGISTRER LES DONNEES DE SELECTION DE PRODUIT EN LOCAL
-        document.querySelector("#addToCart").addEventListener('click', function (e) {
+        document.querySelector("#addToCart").addEventListener('click', (e) => {
             e.preventDefault();
-            localStorage.setItem("Prix", `${product.price}`);
-            localStorage.setItem("Id", `${product._id}`);
-            let productColor = document.querySelector("#colors").value;
-            localStorage.setItem("Couleur", productColor);
-            let productQuantity = document.querySelector("#quantity").value;
-            console.log(productQuantity);
-            localStorage.setItem("Quantité", productQuantity);
+//DONNEES DU PANIER
+            let productOptions = {
+            id: `${product._id}`,
+            nom: `${product.name}`,
+            couleur: document.querySelector("#colors").value,
+            quantité: document.querySelector("#quantity").value,
+            prix: `${product.price}`,
+            image: `${product.imageUrl}`,
+            alt: `${product.altTxt}`
+        }
+
+//VARIABLE POUR ENREGISTRER LES CLES ET VALEURS DU LOCAL STORAGE
+            let productInLocalStorage = JSON.parse(localStorage.getItem("Canapé"));
+
+            if (productInLocalStorage) {
+                productInLocalStorage.push(productOptions);
+                localStorage.setItem("Canapé", JSON.stringify(productInLocalStorage));
+
+            } else {
+                productInLocalStorage = [];
+                productInLocalStorage.push(productOptions);
+                localStorage.setItem("Canapé", JSON.stringify(productInLocalStorage));
+            }
         })
         console.dir(product);
 });
-
-//VARIABLE POUR ENREGISTRER LES CLES ET VALEURS DU LOCAL STORAGE
-let productInLocalStorage = JSON.parse(localStorage.getItem("product"));
-console.log(productInLocalStorage);
 
