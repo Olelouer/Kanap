@@ -1,6 +1,6 @@
-let productInLocalStorage = JSON.parse(localStorage.getItem("Canapé"));
-
 //AFFICHAGE DES PRODUITS DU PANIER
+
+let productInLocalStorage = JSON.parse(localStorage.getItem("Canapé"));
 
 //GESTION DU PANIER VIDE ET PLEIN
 
@@ -10,7 +10,15 @@ if (productInLocalStorage == null) {
                                                         </div>`;
 
 } else {
-    for (i = 0 ; i < productInLocalStorage.length ; i+= 1) {
+
+    //CREATION DES VARIABLES TABLEAUX QUI VONT CONTENIR LES QUANTITES ET PRIX DES PRODUITS
+
+    let totalPrice = [];
+    let totalQuantity = [];
+
+    //EXTRACTION DU LOCAL STORAGE POUR CREATION DE LA FICHE PRODUIT DANS LE PANIER
+
+    for (i = 0 ; i < productInLocalStorage.length ; i += 1) {
         document.querySelector("#cart__items").innerHTML +=     `<article class="cart__item" data-id="${productInLocalStorage[i].id}">
                                                                      <article class="cart__item" data-id="${productInLocalStorage[i].id}">
                                                                         <div class="cart__item__img">
@@ -37,15 +45,29 @@ if (productInLocalStorage == null) {
 
 //TOTAL PANIER
 
-        let quantityTotale = parseInt(`${productInLocalStorage[i].quantité}`);
-        let sum = 0;
+    //VARIABLES POUR CHANGER LE TYPE EN NOMBRE
 
-        document.querySelector("#totalQuantity").innerHTML += `${sum += quantityTotale}`;
-        document.querySelector("#totalPrice").innerHTML += `${productInLocalStorage[i].prix * productInLocalStorage[i].quantité}`;
+        let quantityNumber = parseInt(productInLocalStorage[i].quantité);
+        let priceNumber = parseInt(productInLocalStorage[i].prix * productInLocalStorage[i].quantité);
+
+    //PUSH DES NOMBRES DANS LES VARIABLES TABLEAUX
+
+        totalQuantity.push(quantityNumber);
+        totalPrice.push(priceNumber);
+
     }
 
-    
+    //ADDITION DES QUANTITES DES PRODUITS
 
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const totalQuantityResult = totalQuantity.reduce(reducer, 0);
+
+    //ADDITION DES PRIX DES PRODUITS
+
+    const totalPriceResult = totalPrice.reduce(reducer, 0);
+
+    document.querySelector("#totalQuantity").innerHTML += `${totalQuantityResult}`;
+    document.querySelector("#totalPrice").innerHTML += `${totalPriceResult}`;
 
 }
 
