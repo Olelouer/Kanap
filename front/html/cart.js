@@ -3,6 +3,7 @@ let productInLocalStorage = JSON.parse(localStorage.getItem("Canapé"));
 //AFFICHAGE DES PRODUITS DU PANIER
 
 //GESTION DU PANIER VIDE ET PLEIN
+
 if (productInLocalStorage == null) {
     document.querySelector("#cart__items").innerHTML += `<div id="empty_cart">
                                                             <p>Panier est vide</p>
@@ -35,9 +36,17 @@ if (productInLocalStorage == null) {
                                                                 </article>`;
 
 //TOTAL PANIER
-        let sum = 0;                                                       
-        document.querySelector("#totalQuantity").innerHTML += `${sum += productInLocalStorage[i].quantité}`;    
-        document.querySelector("#totalPrice").innerHTML += `${sum += productInLocalStorage[i].prix * productInLocalStorage[i].quantité}`;
-        
+
+        let quantityTotale = parseInt(`${productInLocalStorage[i].quantité}`);
+        let sum = 0;
+
+        document.querySelector("#totalQuantity").innerHTML += `${sum += quantityTotale}`;
+        document.querySelector("#totalPrice").innerHTML += `${productInLocalStorage[i].prix * productInLocalStorage[i].quantité}`;
     }
+
+    
+
+
 }
+
+

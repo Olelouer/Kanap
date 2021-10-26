@@ -3,6 +3,7 @@ AFFICHAGE DU PRODUIT SELECTIONNE
 */
 
 //SELECTION DE L'ID DU PRODUIT DANS LA BARRE DE RECHERCHE
+
 let params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 const urlProduct = `http://localhost:3000/api/products/${productId}`;
@@ -10,6 +11,7 @@ console.log(urlProduct);
 
 
 //AFFICHAGE DYNAMIQUE DU PRODUIT SELECTIONNE
+
 fetch(urlProduct)
     .then( data => data.json())
     .then( jsonProduct => {
@@ -23,9 +25,12 @@ fetch(urlProduct)
         }
 
 //ENREGISTRER LES DONNEES DE SELECTION DE PRODUIT EN LOCAL
+
         document.querySelector("#addToCart").addEventListener('click', (e) => {
             e.preventDefault();
-//DONNEES DU PANIER
+
+//DONNEES ENREGISTREES DANS LE LOCAL STORAGE
+
             let productOptions = {
             id: `${product._id}`,
             nom: `${product.name}`,
@@ -37,6 +42,7 @@ fetch(urlProduct)
         }
 
 //VARIABLE POUR ENREGISTRER LES CLES ET VALEURS DU LOCAL STORAGE
+
             let productInLocalStorage = JSON.parse(localStorage.getItem("Canapé"));
 
             if (productInLocalStorage) {
