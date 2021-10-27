@@ -43,18 +43,27 @@ fetch(urlProduct)
 
 //VARIABLE POUR ENREGISTRER LES CLES ET VALEURS DU LOCAL STORAGE
 
-            let productInLocalStorage = JSON.parse(localStorage.getItem("Canapé"));
+            let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
 
-            if (productInLocalStorage) {
+            if (productInLocalStorage === null) {
+                productInLocalStorage= [];
                 productInLocalStorage.push(productOptions);
-                localStorage.setItem("Canapé", JSON.stringify(productInLocalStorage));
+                localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
 
             } else {
-                productInLocalStorage = [];
-                productInLocalStorage.push(productOptions);
-                localStorage.setItem("Canapé", JSON.stringify(productInLocalStorage));
-            }
+                const found = productInLocalStorage.find(element => element.id == productOptions.id && element.couleur == productOptions.couleur);
+                console.dir(found);
+                if (found == undefined) {
+                    productInLocalStorage.push(productOptions);
+                    localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
+                } else {
+
+                    //modifier la quantité avec une addition
+                    //changer valeur dans productinlocalstorage puis remplacer dans le vrai localStorage
+                }
+                    
+            }   
         })
-        console.dir(product);
+
 });
 

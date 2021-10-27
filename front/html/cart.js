@@ -27,12 +27,12 @@ if (productInLocalStorage == null) {
                                                                         <div class="cart__item__content">
                                                                             <div class="cart__item__content__titlePrice">
                                                                                 <h2>${productInLocalStorage[i].nom}</h2>
-                                                                                <p>${productInLocalStorage[i].prix * productInLocalStorage[i].quantité} €</p>
+                                                                                <p>${productInLocalStorage[i].prix * productInLocalStorage[i].quantite} €</p>
                                                                             </div>
                                                                             <div class="cart__item__content__settings">
                                                                                 <div class="cart__item__content__settings__quantity">
                                                                                     <p>Couleur : ${productInLocalStorage[i].couleur}</p>
-                                                                                    <p>Qté : ${productInLocalStorage[i].quantité}</p>
+                                                                                    <p>Qté : </p>
                                                                                     <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productInLocalStorage[i].quantité}">
                                                                                 </div>
                                                                                 <div class="cart__item__content__settings__delete">
