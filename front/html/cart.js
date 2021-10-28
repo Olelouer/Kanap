@@ -71,4 +71,21 @@ if (productInLocalStorage == null) {
 
 }
 
+//GERER LES INTERACTIONS AVEC LE FORMULAIRE A REMPLIR
+
+patternTextOnly = document.querySelector("#firstName, #lastName, #city");
+patternTextOnly.setAttribute("pattern", "[a-zA-Z]");
+
+document.querySelector(".cart__order__form__submit").addEventListener("click", function() {
+    let valid = true;
+    for(let input of document.querySelectorAll(".cart__order__form__question input")) {
+    valid &= input.reportValidity();
+        if (!valid) {
+            break;
+        } 
+    }   
+    if (valid) {
+        alert("Votre commande a bien été envoyée")
+    }
+})
 
