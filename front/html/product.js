@@ -35,7 +35,7 @@ fetch(urlProduct)
             id: `${product._id}`,
             nom: `${product.name}`,
             couleur: document.querySelector("#colors").value,
-            quantite: document.querySelector("#quantity").value,
+            quantite: parseInt(document.querySelector("#quantity").value),
             prix: `${product.price}`,
             image: `${product.imageUrl}`,
             alt: `${product.altTxt}`
@@ -52,28 +52,21 @@ fetch(urlProduct)
 
             } else {
                 const found = productInLocalStorage.find(element => element.id == productOptions.id && element.couleur == productOptions.couleur);
-                console.dir(found);
+                
                 
                 if (found == undefined) {
                     productInLocalStorage.push(productOptions);
                     localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
                     
+
+        //SI PRODUIT AVEC MEME ID ET COULEUR AUGMENTER LA QUANTITE
                 } else {
 
-                    
-                    productOptions.quantite = parseInt(found.quantite) + parseInt(productOptions.quantite);
-                    console.log(productOptions.quantite);
-                    productInLocalStorage.push(productOptions.quantite);
+                    found.quantite += productOptions.quantite;
                     localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
-                    console.dir(found.quantite);
 
-                    //modifier la quantité avec une addition
-                    //changer valeur dans productinlocalstorage puis remplacer dans le vrai localStorage
                 }
-                
-                    
             }   
         })
-
 });
 

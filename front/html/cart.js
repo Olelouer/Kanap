@@ -1,12 +1,12 @@
 //AFFICHAGE DES PRODUITS DU PANIER
 
-let productInLocalStorage = JSON.parse(localStorage.getItem("Canapé"));
+let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
 
 //GESTION DU PANIER VIDE ET PLEIN
 
 if (productInLocalStorage == null) {
     document.querySelector("#cart__items").innerHTML += `<div id="empty_cart">
-                                                            <p>Panier est vide</p>
+                                                            <p>Panier vide</p>
                                                         </div>`;
 
 } else {
@@ -33,7 +33,7 @@ if (productInLocalStorage == null) {
                                                                                 <div class="cart__item__content__settings__quantity">
                                                                                     <p>Couleur : ${productInLocalStorage[i].couleur}</p>
                                                                                     <p>Qté : </p>
-                                                                                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productInLocalStorage[i].quantité}">
+                                                                                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productInLocalStorage[i].quantite}">
                                                                                 </div>
                                                                                 <div class="cart__item__content__settings__delete">
                                                                                     <p class="deleteItem">Supprimer</p>
@@ -43,12 +43,17 @@ if (productInLocalStorage == null) {
                                                                     </article>
                                                                 </article>`;
 
+
+                                                                if (`${productInLocalStorage[i].quantite}` <= 0) {
+                                                                    basket = basket.filter(p => p._id != product._id || p.color != product.color);
+                                                                }
+
 //TOTAL PANIER
 
     //VARIABLES POUR CHANGER LE TYPE EN NOMBRE
 
-        let quantityNumber = parseInt(productInLocalStorage[i].quantité);
-        let priceNumber = parseInt(productInLocalStorage[i].prix * productInLocalStorage[i].quantité);
+        let quantityNumber = parseInt(productInLocalStorage[i].quantite);
+        let priceNumber = parseInt(productInLocalStorage[i].prix * productInLocalStorage[i].quantite);
 
     //PUSH DES NOMBRES DANS LES VARIABLES TABLEAUX
 
@@ -83,7 +88,25 @@ patternLastName.setAttribute("pattern", "[a-zA-Z-éèà]*");
 let patternCity = document.querySelector("#city");
 patternCity.setAttribute("pattern", "[a-zA-Z-éèà]*");
 
-
+function send(j) {
+    j.preventDefault();
+    fetch("http://localhost:3000/api/products/order", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json', 
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        contact: {
+            firstName: document.getElementById("firstName").value,
+            lastName: document.getElementById("lastName").value,
+            address: document.getElementById("address").value,
+            city: document.getElementById("city").value,
+            email: document.getElementById("email").value
+            }
+        })
+    })
+}
 
 document.querySelector(".cart__order__form__submit").addEventListener("click", function(e) {
     e.preventDefault();
@@ -95,7 +118,12 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
         } 
     }   
     if (valid) {
-        alert("Votre commande a bien été enregistrée")
+        alert("Votre commande n° a bien été enregistrée");
+        send;
     }
 })
+
+
+
+
 
