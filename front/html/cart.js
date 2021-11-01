@@ -73,10 +73,20 @@ if (productInLocalStorage == null) {
 
 //GERER LES INTERACTIONS AVEC LE FORMULAIRE A REMPLIR
 
-patternTextOnly = document.querySelector("#firstName, #lastName, #city");
-patternTextOnly.setAttribute("pattern", "[a-zA-Z]");
+//PATTERN POUR VALIDATION DE LETTRES UNIQUEMENT
+let patternFirstName = document.querySelector("#firstName");
+patternFirstName.setAttribute("pattern", "[a-zA-Z-éèà]*");
 
-document.querySelector(".cart__order__form__submit").addEventListener("click", function() {
+let patternLastName = document.querySelector("#lastName");
+patternLastName.setAttribute("pattern", "[a-zA-Z-éèà]*");
+
+let patternCity = document.querySelector("#city");
+patternCity.setAttribute("pattern", "[a-zA-Z-éèà]*");
+
+
+
+document.querySelector(".cart__order__form__submit").addEventListener("click", function(e) {
+    e.preventDefault();
     let valid = true;
     for(let input of document.querySelectorAll(".cart__order__form__question input")) {
     valid &= input.reportValidity();
@@ -85,7 +95,7 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
         } 
     }   
     if (valid) {
-        alert("Votre commande a bien été envoyée")
+        alert("Votre commande a bien été enregistrée")
     }
 })
 
