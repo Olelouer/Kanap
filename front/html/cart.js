@@ -83,18 +83,21 @@ patternLastName.setAttribute("pattern", "[a-zA-Z-éèà]*");
 let patternCity = document.querySelector("#city");
 patternCity.setAttribute("pattern", "[a-zA-Z-éèà]*");
 
+//RECUPERER LES ID POUR ENVOIE A L'API
+
+let getId = productInLocalStorage.map(product => product.id);
+
+console.log(getId);
 
 //ENVOIE DES CHAMPS A L'API
 
-function send(j) {
-    j.preventDefault();
-    fetch("http://localhost:3000/api/products/order", {
-      method: "POST",
-      headers: {
+const result = fetch("http://localhost:3000/api/products/order", {
+     method: "POST",
+    headers: {
         'Accept': 'application/json', 
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    },
+    body: JSON.stringify({
         contact: {
             firstName: document.getElementById("firstName").value,
             lastName: document.getElementById("lastName").value,
@@ -102,12 +105,21 @@ function send(j) {
             city: document.getElementById("city").value,
             email: document.getElementById("email").value
             },
-        productID: {
-            productInLocalStorage
-        }
-        })
+        products : getId
     })
-}
+});
+
+result.then(async (res) => {
+    try {
+        const data = await res.json();
+        console.log(data);
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+
+
 
 //VALIDATION DES CHAMPS UTILISATEURS
 
@@ -121,11 +133,9 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
         } 
     }   
     if (valid) {
-        alert("Votre commande n° a bien été enregistrée");
-        send;
+        result;
     }
 })
-
 
   //MODIFICATION DE LA QUANTITE AVEC L'INPUT
 
