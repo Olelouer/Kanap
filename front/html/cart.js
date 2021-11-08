@@ -89,39 +89,7 @@ let getId = productInLocalStorage.map(product => product.id);
 
 console.log(getId);
 
-//ENVOIE DES CHAMPS A L'API
-
-const result = fetch("http://localhost:3000/api/products/order", {
-     method: "POST",
-    headers: {
-        'Accept': 'application/json', 
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        contact: {
-            firstName: document.getElementById("firstName").value,
-            lastName: document.getElementById("lastName").value,
-            address: document.getElementById("address").value,
-            city: document.getElementById("city").value,
-            email: document.getElementById("email").value
-            },
-        products : getId
-    })
-});
-
-result.then(async (res) => {
-    try {
-        const data = await res.json();
-        console.log(data);
-    } catch (e) {
-        console.log(e);
-    }
-});
-
-
-
-
-//VALIDATION DES CHAMPS UTILISATEURS
+//VALIDATION DES CHAMPS UTILISATEURS ET ENVOI DES DONNEES A L'API
 
 document.querySelector(".cart__order__form__submit").addEventListener("click", function(e) {
     e.preventDefault();
@@ -133,7 +101,31 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
         } 
     }   
     if (valid) {
-        result;
+        const result = fetch("http://localhost:3000/api/products/order", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contact: {
+                    firstName: document.getElementById("firstName").value,
+                    lastName: document.getElementById("lastName").value,
+                    address: document.getElementById("address").value,
+                    city: document.getElementById("city").value,
+                    email: document.getElementById("email").value
+                    },
+                products : getId
+            })
+        });
+
+        result.then(async (response) => {
+            try {
+                const data = await response.json();
+                console.log(data);
+            } catch (e) {
+            }
+        });
     }
 })
 
