@@ -4,7 +4,7 @@ let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
 
 //GESTION DU PANIER VIDE ET PLEIN
 
-if (productInLocalStorage == null) {
+if (productInLocalStorage == null || productInLocalStorage.length == 0 ) {
     document.querySelector("#cart__items").innerHTML += `<div id="empty_cart">
                                                             <p>Panier vide</p>
                                                         </div>`;
@@ -33,20 +33,15 @@ if (productInLocalStorage == null) {
                                                                                 <div class="cart__item__content__settings__quantity">
                                                                                     <p>Couleur : ${productInLocalStorage[i].couleur}</p>
                                                                                     <p>Qté : </p>
-                                                                                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productInLocalStorage[i].quantite}">
+                                                                                    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" canapeId="${productInLocalStorage[i].id}" canapeColor="${productInLocalStorage[i].couleur}" value="${productInLocalStorage[i].quantite}">
                                                                                 </div>
                                                                                 <div class="cart__item__content__settings__delete">
-                                                                                    <p class="deleteItem">Supprimer</p>
+                                                                                    <p class="deleteItem" canapeId="${productInLocalStorage[i].id}" canapeColor="${productInLocalStorage[i].couleur}">Supprimer</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </article>
                                                                 </article>`;
-
-
-                                                                if (`${productInLocalStorage[i].quantite}` <= 0) {
-                                                                    basket = basket.filter(p => p._id != product._id || p.color != product.color);
-                                                                }
 
 //TOTAL PANIER
 
@@ -88,6 +83,9 @@ patternLastName.setAttribute("pattern", "[a-zA-Z-éèà]*");
 let patternCity = document.querySelector("#city");
 patternCity.setAttribute("pattern", "[a-zA-Z-éèà]*");
 
+
+//ENVOIE DES CHAMPS A L'API
+
 function send(j) {
     j.preventDefault();
     fetch("http://localhost:3000/api/products/order", {
@@ -103,10 +101,15 @@ function send(j) {
             address: document.getElementById("address").value,
             city: document.getElementById("city").value,
             email: document.getElementById("email").value
-            }
+            },
+        productID: {
+            productInLocalStorage
+        }
         })
     })
 }
+
+//VALIDATION DES CHAMPS UTILISATEURS
 
 document.querySelector(".cart__order__form__submit").addEventListener("click", function(e) {
     e.preventDefault();
@@ -124,6 +127,35 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
 })
 
 
+  //MODIFICATION DE LA QUANTITE AVEC L'INPUT
 
+  let inputs = document.querySelectorAll('.itemQuantity');
+
+  for (let input of Array.from(inputs)) {
+      input.addEventListener("change", event => {
+        let canapeId = event.target.getAttribute("canapeId");
+        let canapeColor = event.target.getAttribute("canapeColor");
+        const modify = productInLocalStorage.find(element => element.id == canapeId && element.couleur == canapeColor);
+        modify.quantite = input.value;
+        productInlocalStorage = modify;
+        localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
+        window.location.href = "cart.html";
+    })
+  }
+
+//SELECTION DES ELEMENTS A GARDER ET SUPPRESSION DE L'ELEMENT
+
+  let buttons = document.querySelectorAll('.deleteItem');
+
+  for (let button of Array.from(buttons)){
+      button.addEventListener("click", e => {
+          let canapeId = e.target.getAttribute("canapeId");
+          let canapeColor = e.target.getAttribute("canapeColor");
+          const deleteItem = productInLocalStorage.find(element => element.id == canapeId && element.couleur == canapeColor);
+          productInLocalStorage = productInLocalStorage.filter(item => item != deleteItem);
+          localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
+          window.location.href = "cart.html";
+      })
+  }
 
 
