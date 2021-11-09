@@ -87,8 +87,6 @@ patternCity.setAttribute("pattern", "[a-zA-Z-éèà]*");
 
 let getId = productInLocalStorage.map(product => product.id);
 
-console.log(getId);
-
 //VALIDATION DES CHAMPS UTILISATEURS ET ENVOI DES DONNEES A L'API
 
 document.querySelector(".cart__order__form__submit").addEventListener("click", function(e) {
@@ -119,10 +117,13 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
             })
         });
 
-        result.then(async (response) => {
+        result.then(async (answer) => {
             try {
-                const data = await response.json();
+                const data = await answer.json();
                 console.log(data);
+                console.log(data.orderId);
+                window.location.href = `confirmation.html?id=${data.orderId}`;
+                localStorage.clear();
             } catch (e) {
             }
         });
@@ -159,5 +160,3 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
           window.location.href = "cart.html";
       })
   }
-
-
