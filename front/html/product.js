@@ -9,6 +9,27 @@ const productId = params.get("id");
 const urlProduct = `http://localhost:3000/api/products/${productId}`;
 console.log(urlProduct);
 
+function saveInLocalStorage(productOptions) {
+    let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
+    if (productInLocalStorage === null) {
+        productInLocalStorage= [];
+        productInLocalStorage.push(productOptions);
+        localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
+    } else {
+        const found = productInLocalStorage.find(element => element.id == productOptions.id && element.couleur == productOptions.couleur);
+        
+        if (found == undefined) {
+            productInLocalStorage.push(productOptions);
+            localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
+
+//SI PRODUIT AVEC MEME ID ET COULEUR AUGMENTER LA QUANTITE
+
+        } else {
+            found.quantite += productOptions.quantite;
+            localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
+        }
+    }   
+}
 
 //AFFICHAGE DYNAMIQUE DU PRODUIT SELECTIONNE
 
@@ -43,30 +64,7 @@ fetch(urlProduct)
 
 //VARIABLE POUR ENREGISTRER LES CLES ET VALEURS DU LOCAL STORAGE
 
-            let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
-
-            if (productInLocalStorage === null) {
-                productInLocalStorage= [];
-                productInLocalStorage.push(productOptions);
-                localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
-
-            } else {
-                const found = productInLocalStorage.find(element => element.id == productOptions.id && element.couleur == productOptions.couleur);
-                
-                
-                if (found == undefined) {
-                    productInLocalStorage.push(productOptions);
-                    localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
-                    
-
-        //SI PRODUIT AVEC MEME ID ET COULEUR AUGMENTER LA QUANTITE
-                } else {
-
-                    found.quantite += productOptions.quantite;
-                    localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
-
-                }
-            }   
-        })
+        saveInLocalStorage(productOptions);
+    })
 });
 

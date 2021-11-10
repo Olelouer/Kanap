@@ -5,11 +5,11 @@ let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
 //GESTION DU PANIER VIDE ET PLEIN
 
 if (productInLocalStorage == null || productInLocalStorage.length == 0 ) {
-    document.querySelector("#cart__items").innerHTML += `<div id="empty_cart">
-                                                            <p>Panier vide</p>
-                                                        </div>`;
+    document.getElementById("cart__title").innerHTML += `Votre panier est vide`;
 
 } else {
+
+    document.getElementById("cart__title").innerHTML += `Votre panier`;
 
     //CREATION DES VARIABLES TABLEAUX QUI VONT CONTENIR LES QUANTITES ET PRIX DES PRODUITS
 
@@ -54,7 +54,6 @@ if (productInLocalStorage == null || productInLocalStorage.length == 0 ) {
 
         totalQuantity.push(quantityNumber);
         totalPrice.push(priceNumber);
-
     }
 
     //ADDITION DES QUANTITES DES PRODUITS
@@ -74,6 +73,7 @@ if (productInLocalStorage == null || productInLocalStorage.length == 0 ) {
 //GERER LES INTERACTIONS AVEC LE FORMULAIRE A REMPLIR
 
 //PATTERN POUR VALIDATION DE LETTRES UNIQUEMENT
+
 let patternFirstName = document.querySelector("#firstName");
 patternFirstName.setAttribute("pattern", "[a-zA-Z-éèà]*");
 
