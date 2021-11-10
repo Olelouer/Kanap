@@ -4,6 +4,8 @@ AFFICHAGE DE LA PAGE D'ACCUEIL ET SES INTERACTIONS
 
 const urlProducts = `http://localhost:3000/api/products`;
 
+//AFFICHE TOUS LES PRODUITS PRESENTS DE L'API
+
 function displayProducts(jsonProducts) {
     for (let jsonProduct of jsonProducts) {
         let product = new Product(jsonProduct);

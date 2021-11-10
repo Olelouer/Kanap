@@ -9,6 +9,8 @@ const productId = params.get("id");
 const urlProduct = `http://localhost:3000/api/products/${productId}`;
 console.log(urlProduct);
 
+//ENREGISTRER LES CLES ET VALEURS DU LOCAL STORAGE
+
 function saveInLocalStorage(productOptions) {
     let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
     if (productInLocalStorage === null) {
@@ -61,8 +63,6 @@ fetch(urlProduct)
             image: `${product.imageUrl}`,
             alt: `${product.altTxt}`
         }
-
-//VARIABLE POUR ENREGISTRER LES CLES ET VALEURS DU LOCAL STORAGE
 
         saveInLocalStorage(productOptions);
     })

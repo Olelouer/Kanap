@@ -132,8 +132,8 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
 
   //MODIFICATION DE LA QUANTITE AVEC L'INPUT
 
+function modifyQuantity() {
   let inputs = document.querySelectorAll('.itemQuantity');
-
   for (let input of Array.from(inputs)) {
       input.addEventListener("change", event => {
         let canapeId = event.target.getAttribute("canapeId");
@@ -145,18 +145,24 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
         window.location.href = "cart.html";
     })
   }
+}
 
-//SELECTION DES ELEMENTS A GARDER ET SUPPRESSION DE L'ELEMENT
+modifyQuantity();
 
+//SELECTION DES ELEMENTS A GARDER ET SUPPRESSION DE L'ELEMENT DANS LE TABLEAU PRODUCTINLOCALSTORAGE
+
+function deleteItem() {
   let buttons = document.querySelectorAll('.deleteItem');
-
   for (let button of Array.from(buttons)){
       button.addEventListener("click", e => {
           let canapeId = e.target.getAttribute("canapeId");
           let canapeColor = e.target.getAttribute("canapeColor");
-          const deleteItem = productInLocalStorage.find(element => element.id == canapeId && element.couleur == canapeColor);
-          productInLocalStorage = productInLocalStorage.filter(item => item != deleteItem);
+          const searchDeleteItem = productInLocalStorage.find(element => element.id == canapeId && element.couleur == canapeColor);
+          productInLocalStorage = productInLocalStorage.filter(item => item != searchDeleteItem);
           localStorage.setItem("Canape", JSON.stringify(productInLocalStorage));
           window.location.href = "cart.html";
       })
   }
+}
+
+deleteItem();
