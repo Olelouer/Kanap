@@ -129,7 +129,13 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
     }
 })
 
-  //MODIFICATION DE LA QUANTITE AVEC L'INPUT
+/*MODIFICATION DE LA QUANTITE AVEC L'INPUT
+*Crée un tableau d'input
+*Cherche l'ID et la couleur du produit présent dans la classe .itemQuantity et le compare au produit présent dans productInlocalStorage
+*Crée une nouvelle fiche produit avec la quantité mise à jour
+*Met à jour ce produit dans productInLocalStorage
+*Enregistre productInlocalStorage dans le localStorage et rafraichit la page
+*/
 
 function modifyQuantity() {
   let inputs = document.querySelectorAll('.itemQuantity');
@@ -148,7 +154,12 @@ function modifyQuantity() {
 
 modifyQuantity();
 
-//SELECTION DE L'ELEMENT A SUPPRIMER DANS LE TABLEAU PRODUCTINLOCALSTORAGE
+/*SELECTION DE L'ELEMENT A SUPPRIMER DANS LE TABLEAU PRODUCTINLOCALSTORAGE
+*Crée un tableau de boutons
+*Cherche l'ID et la couleur du produit présent dans la classe .deleteItem et le compare au produit présent dans productInlocalStorage
+*Filtre le produit trouvé et le supprime du tableau productInLocalStorage
+*Enregistre productInlocalStorage dans le localStorage et rafraichit la page
+*/
 
 function deleteItem() {
   let buttons = document.querySelectorAll('.deleteItem');
