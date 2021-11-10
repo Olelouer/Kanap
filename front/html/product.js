@@ -63,7 +63,6 @@ fetch(urlProduct)
             image: `${product.imageUrl}`,
             alt: `${product.altTxt}`
         }
-
         saveInLocalStorage(productOptions);
     })
 });

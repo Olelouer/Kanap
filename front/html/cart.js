@@ -116,7 +116,6 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
                 products : getId
             })
         });
-
         result.then(async (answer) => {
             try {
                 const data = await answer.json();
@@ -149,7 +148,7 @@ function modifyQuantity() {
 
 modifyQuantity();
 
-//SELECTION DES ELEMENTS A GARDER ET SUPPRESSION DE L'ELEMENT DANS LE TABLEAU PRODUCTINLOCALSTORAGE
+//SELECTION DE L'ELEMENT A SUPPRIMER DANS LE TABLEAU PRODUCTINLOCALSTORAGE
 
 function deleteItem() {
   let buttons = document.querySelectorAll('.deleteItem');
