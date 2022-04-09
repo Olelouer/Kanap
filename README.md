@@ -17,6 +17,7 @@ console when the server starts, e.g. `Listening on port 3001`.
 #### Spécifications fonctionnelles ####
 
 L’application web est composée de 4 pages dont les fonctionnalités suivantes doivent êtres codées en Javascript:
+
 ● Une page d’accueil montrant (de manière dynamique) tous les articles disponibles à
 la vente.
 
