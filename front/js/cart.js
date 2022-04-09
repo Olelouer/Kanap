@@ -119,8 +119,6 @@ document.querySelector(".cart__order__form__submit").addEventListener("click", f
         result.then(async (answer) => {
             try {
                 const data = await answer.json();
-                console.log(data);
-                console.log(data.orderId);
                 window.location.href = `confirmation.html?id=${data.orderId}`;
                 localStorage.clear();
             } catch (e) {
