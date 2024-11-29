@@ -6,7 +6,6 @@ let productInLocalStorage = JSON.parse(localStorage.getItem("Canape"));
 
 if (productInLocalStorage == null || productInLocalStorage.length == 0 ) {
     document.getElementById("cart__title").innerHTML += `Votre panier est vide`;
-
 } else {
 
     document.getElementById("cart__title").innerHTML += `Votre panier`;
